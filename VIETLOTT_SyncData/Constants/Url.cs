@@ -14,7 +14,7 @@ namespace VIETLOTT_SyncData.Constants
         //public const string UrlAgency = "https://vietlott-prod.xplat.fpt.com.vn/api/getagency";
         //public const string UrlPos = "https://vietlott-prod.xplat.fpt.com.vn/api/getpos?AgencyCode=";
 
-
+        //
         //public const string UrlAgency = "https://10.14.185.6:44340/api/getagency?UpdatedDate=";
         public const string UrlAgency = "https://erpapi.vietlott.vn/api/getagency?AccessToken=087e0ea4c6db4320820492141f94f29f";
         public const string UrlAgencyDaily = "https://erpapi.vietlott.vn/api/getagency?AccessToken=087e0ea4c6db4320820492141f94f29f&UpdatedDate=";
