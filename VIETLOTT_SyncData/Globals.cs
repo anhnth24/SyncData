@@ -39,6 +39,7 @@ namespace VIETLOTT_SyncData
         private static string SapUser;
         private static string SapPass;
 
+        //anhnth PC
         public static bool ConnectSapB1()
         {
             if (Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node").GetSubKeyNames().Contains("Vietlott"))
