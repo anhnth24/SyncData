@@ -15,7 +15,7 @@ namespace VIETLOTT_SyncData
     public partial class Service1 : ServiceBase
     {
         private static Timer _timer;
-        const double TIMEOUT = 10800000;
+        const double TIMEOUT = 6000000;
 
         public Service1()
         {
