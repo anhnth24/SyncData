@@ -27,11 +27,11 @@ namespace VIETLOTT_SyncData
         public static BranchModel zBranch;
         public static string path = "C:\\VietlottInterface\\LogInterface\\BP.xml";
 
-        private static string sCon;
-        private static string h;
-        private static string port;
-        private static string u;
-        private static string pass;
+        //private static string sCon;
+        //private static string h;
+        //private static string port;
+        //private static string u;
+        //private static string pass;
         private static string db;
         private static string SapServer;
         private static string LicenseServer;
@@ -101,7 +101,7 @@ namespace VIETLOTT_SyncData
 
         public static void WriteLog(string msg)
         {
-            File.AppendAllText(String.Format("{0}\\{1}.txt", Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)), "Create JE logs - " + DateTime.Now.ToString("yyyy-MM-dd")), String.Format("{0}: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), msg));
+            File.AppendAllText(String.Format("{0}\\{1}.txt", Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)), "Sync logs - " + DateTime.Now.ToString("yyyy-MM-dd")), String.Format("{0}: {1}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), msg));
         }
 
         public static DataTable QueryToDataTable(string query)
@@ -221,7 +221,7 @@ namespace VIETLOTT_SyncData
             }
             catch (Exception ex)
             {
-
+                WriteLog(ex.ToString());
             }
         }
 
@@ -261,7 +261,7 @@ namespace VIETLOTT_SyncData
             }
             catch (Exception ex)
             {
-
+                WriteLog(ex.ToString());
             }
         }
 
@@ -374,6 +374,7 @@ namespace VIETLOTT_SyncData
             try
             {
                 DataTable smsprov = QueryToDataTable("Select distinct U_PROVCODE,U_SMSPROV FROM OPRJ WHERE U_SMSPROV IS NOT NULL");
+                WriteLog("Pos Update,Add "+ DateTime.Today.ToString("yyyy-MM-dd") + " : " + zPos.Data.Count());
                 foreach (PosModelData p in zPos.Data)
                 {
                     try
@@ -446,7 +447,7 @@ namespace VIETLOTT_SyncData
                         WriteLog(Globals.CompanyAPI.GetLastErrorDescription() + e.ToString() + p.posCode);
                     }
                 }
-
+                WriteLog("Done !");
 
             }
             catch (Exception ex)
@@ -477,7 +478,7 @@ namespace VIETLOTT_SyncData
             SAPbobsCOM.BusinessPartners BP;
             BP = (SAPbobsCOM.BusinessPartners)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oBusinessPartners);
             long result;
-
+            WriteLog("Agency Update,Add " + DateTime.Today.ToString("yyyy-MM-dd") + " : " + zAgency.Data.Count());
             foreach (AgencyModelData m in zAgency.Data)
             {
                 try
@@ -562,7 +563,7 @@ namespace VIETLOTT_SyncData
                     WriteLog(e.ToString());
                 }
             }
-           
+            WriteLog("Done !");
         }
 
         public static void BusinessPartnerAndProject()

@@ -34,7 +34,7 @@ namespace VIETLOTT_SyncData
 
 
                 //Globals.BusinessPartnerAndProject();
-                //Globals.GetAgencyByDate();
+                Globals.GetAgencyByDate();
                 Globals.GetPosByDate();
             }
             
