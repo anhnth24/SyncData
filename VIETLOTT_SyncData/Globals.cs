@@ -347,8 +347,8 @@ namespace VIETLOTT_SyncData
         {
             DateTime today = DateTime.Today;
             var date = today.ToString("yyyyMMdd");
-            WebRequest request = WebRequest.Create(Constants.Url.UrlPosByDate + date);
-            //WebRequest request = WebRequest.Create(Constants.Url.UrlPosAll);
+            //WebRequest request = WebRequest.Create(Constants.Url.UrlPosByDate + date);
+            WebRequest request = WebRequest.Create(Constants.Url.UrlPosAll);
             request.Proxy = null;
             request.Credentials = CredentialCache.DefaultCredentials;
 
