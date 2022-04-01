@@ -14,18 +14,18 @@ namespace VIETLOTT_SyncData
         /// </summary>
         static void Main()
         {
-#if DEBUG
-            Service1 s = new Service1();
-            s.OnDebug();
+//#if DEBUG
+//            Service1 s = new Service1();
+//            s.OnDebug();
 
-#else
+//#else
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
                     new Service1()
             };
             ServiceBase.Run(ServicesToRun);
-#endif
+//#endif
         }
     }
 }

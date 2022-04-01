@@ -15,7 +15,7 @@ namespace VIETLOTT_SyncData
     public partial class Service1 : ServiceBase
     {
         private static Timer _timer;
-        const double TIMEOUT = 6000000;
+        const double TIMEOUT = 3600000;
 
         public Service1()
         {
@@ -34,7 +34,7 @@ namespace VIETLOTT_SyncData
 
 
                 //Globals.BusinessPartnerAndProject();
-                //Globals.GetAgencyByDate();
+                Globals.GetAgencyByDate();
                 Globals.GetPosByDate();
             }
             
