@@ -347,8 +347,8 @@ namespace VIETLOTT_SyncData
         {
             DateTime today = DateTime.Today;
             var date = today.ToString("yyyyMMdd");
-            //WebRequest request = WebRequest.Create(Constants.Url.UrlPosByDate + date);
-            WebRequest request = WebRequest.Create(Constants.Url.UrlPosAll);
+            WebRequest request = WebRequest.Create(Constants.Url.UrlPosByDate + date);
+            //WebRequest request = WebRequest.Create(Constants.Url.UrlPosAll);
             request.Proxy = null;
             request.Credentials = CredentialCache.DefaultCredentials;
 
@@ -460,8 +460,8 @@ namespace VIETLOTT_SyncData
         {
             DateTime today = DateTime.Today;
             var date = today.ToString("yyyyMMdd");
-            WebRequest request = WebRequest.Create(Constants.Url.UrlAgencyDaily + date);
-            //WebRequest request = WebRequest.Create(Constants.Url.getP);
+            WebRequest request = WebRequest.Create(Constants.Url.UrlAgencyDaily+date);
+            //WebRequest request = WebRequest.Create(Constants.Url.UrlAgencyDaily + "20220429");
             request.Proxy = null;
             request.Credentials = CredentialCache.DefaultCredentials;
 
@@ -474,22 +474,27 @@ namespace VIETLOTT_SyncData
             JObject json = JObject.Parse(responseFromServer);
             zAgency = json.ToObject<AgencyModel>();
 
-            SAPbobsCOM.Company oCompany = CompanyAPI;
-            SAPbobsCOM.BusinessPartners BP;
-            BP = (SAPbobsCOM.BusinessPartners)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oBusinessPartners);
-            long result;
+           
             WriteLog("Agency Update,Add " + DateTime.Today.ToString("yyyy-MM-dd") + " : " + zAgency.Data.Count());
             foreach (AgencyModelData m in zAgency.Data)
             {
                 try
                 {
+                    SAPbobsCOM.Company oCompany = CompanyAPI;
+                    SAPbobsCOM.BusinessPartners BP;
+                    BP = (SAPbobsCOM.BusinessPartners)oCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oBusinessPartners);
+                    long result;
                     if (Globals.CheckBusinessPartner("C" + m.agencyCode) == false)
                     {
                         BP.CardCode = "C" + m.agencyCode;
                         BP.CardName = m.companyName;
                         BP.CardType = SAPbobsCOM.BoCardTypes.cCustomer;
-                        BP.Address = m.address;
+                        if (m.address.Length > 100)
+                            BP.FreeText = m.address;
+                        else
+                            BP.Address = m.address;
                         BP.FederalTaxID = m.taxCode;
+                        //BP.LinkedBusinessPartner = null;
                         result = BP.Add();
                         if (result == 0)
                         {
@@ -506,7 +511,10 @@ namespace VIETLOTT_SyncData
                         //BP.CardCode = "C" + m.agencyCode;
                         BP.CardName = m.companyName;
                         BP.CardType = SAPbobsCOM.BoCardTypes.cCustomer;
-                        BP.Address = m.address;
+                        if (m.address.Length > 100)
+                            BP.FreeText = m.address;
+                        else
+                            BP.Address = m.address;
                         BP.FederalTaxID = m.taxCode;
                         result = BP.Update();
                         if (result == 0)
@@ -524,7 +532,10 @@ namespace VIETLOTT_SyncData
                         BP.CardCode = "S" + m.agencyCode;
                         BP.CardName = m.companyName;
                         BP.CardType = SAPbobsCOM.BoCardTypes.cSupplier;
-                        BP.Address = m.address;
+                        if (m.address.Length > 100)
+                            BP.FreeText = m.address;
+                        else
+                            BP.Address = m.address;
                         BP.FederalTaxID = m.taxCode;
                         BP.LinkedBusinessPartner = "C" + m.agencyCode;
                         result = BP.Add();
@@ -543,7 +554,10 @@ namespace VIETLOTT_SyncData
                         //BP.CardCode = "S" + m.agencyCode;
                         BP.CardName = m.companyName;
                         BP.CardType = SAPbobsCOM.BoCardTypes.cSupplier;
-                        BP.Address = m.address;
+                        if (m.address.Length > 100)
+                            BP.FreeText = m.address;
+                        else
+                            BP.Address = m.address;
                         BP.FederalTaxID = m.taxCode;
                         result = BP.Update();
                         if (result == 0)
